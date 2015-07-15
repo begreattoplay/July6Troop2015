@@ -1,0 +1,32 @@
+﻿@model MVCAddCalculator.Models.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using(Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(m => m.Number1)<br />
+        @Html.TextBoxFor(m => m.Number1)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Number2)<br />
+        @Html.TextBoxFor(m => m.Number2)
+    </div>
+    <div>
+        <input type="submit" value="Add" />
+    </div>
+}
+
+<div>
+    @if (Model != null)
+    {
+        @:Answer: @Html.DisplayTextFor(m => m.Result)    
+    }
+    else
+    {
+        @:N/A
+    }
+</div>

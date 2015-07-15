@@ -1,0 +1,22 @@
+﻿@using ShoppingList.Models
+@model Product
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using(Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(m => m.Name, "Product Name")<br />
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Price)<br />
+        @Html.TextBoxFor(m => m.Price)
+    </div>
+    <div>
+        <input type="submit" value="Create" />
+    </div>
+}
