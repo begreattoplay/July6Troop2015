@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ToyLayout.cshtml";
+}
+
+@Html.Action("GetAd", "BannerAd")
+
+<h2>Welcome to our Toy Store</h2>
+
+<p>We have a lot of really great toys.  Come see our everything is awesome LEGO section!</p>
+
+@Html.Partial("_FeaturedProduct")
+
+
+@Html.Action("GetQuote", "Quote")
+
+@section FeaturedToys {    
+    <ul>
+        <li>Dominos</li>
+        <li>Playing Cards</li>
+        <li>LEGOs</li>
+    </ul>
+}
