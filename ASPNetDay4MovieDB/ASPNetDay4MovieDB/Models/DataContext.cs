@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ASPNetDay4MovieDB.Migrations;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ASPNetDay4MovieDB.Models
     {
         static DataContext()
         {
-            Database.SetInitializer(new DatabaseInitializer());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
         }
 
         public IDbSet<Movie> Movies { get; set; }

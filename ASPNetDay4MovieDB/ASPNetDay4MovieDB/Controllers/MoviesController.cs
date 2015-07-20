@@ -18,5 +18,67 @@ namespace ASPNetDay4MovieDB.Controllers
 
             return View(movies.ToList());
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Movies.Add(movie);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            Movie movie = _db.Movies.Find(id);
+            return View(movie);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                Movie original = _db.Movies.Find(movie.Id);
+                original.Title = movie.Title;
+                original.Director = movie.Director;
+
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            Movie movie = _db.Movies.Find(id);
+            return View(movie);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteReally(int id)
+        {
+            Movie original = _db.Movies.Find(id);
+            _db.Movies.Remove(original);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
