@@ -9,14 +9,18 @@ namespace ASPNetDay4MovieDB.Controllers
 {
     public class MoviesController : Controller
     {
-        private DataContext _db = new DataContext();
+        private IGenericRepository _repo;
+
+        public MoviesController(IGenericRepository repo)
+        {
+            _repo = repo;
+        }
 
         // GET: Movies
         public ActionResult Index()
         {
-            var movies = from m in _db.Movies select m;
-
-            return View(movies.ToList());
+            var movies = _repo.Query<Movie>().Include(m => m.Genre).ToList();
+            return View(movies);
         }
 
         [HttpGet]
@@ -30,8 +34,8 @@ namespace ASPNetDay4MovieDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Movies.Add(movie);
-                _db.SaveChanges();
+                _repo.Add<Movie>(movie);
+                _repo.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -42,7 +46,7 @@ namespace ASPNetDay4MovieDB.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            Movie movie = _db.Movies.Find(id);
+            Movie movie = _repo.Find<Movie>(id);
             return View(movie);
         }
 
@@ -51,11 +55,10 @@ namespace ASPNetDay4MovieDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                Movie original = _db.Movies.Find(movie.Id);
-                original.Title = movie.Title;
-                original.Director = movie.Director;
-
-                _db.SaveChanges();
+                var originalMovie = _repo.Find<Movie>(movie.Id);
+                originalMovie.Title = movie.Title;
+                originalMovie.Director = movie.Director;
+                _repo.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -66,7 +69,7 @@ namespace ASPNetDay4MovieDB.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Movie movie = _db.Movies.Find(id);
+            Movie movie = _repo.Find<Movie>(id);
             return View(movie);
         }
 
@@ -74,9 +77,8 @@ namespace ASPNetDay4MovieDB.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteReally(int id)
         {
-            Movie original = _db.Movies.Find(id);
-            _db.Movies.Remove(original);
-            _db.SaveChanges();
+            _repo.Delete<Movie>(id);
+            _repo.SaveChanges();
 
             return RedirectToAction("Index");
         }

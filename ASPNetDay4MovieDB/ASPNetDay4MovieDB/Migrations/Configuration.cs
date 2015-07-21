@@ -17,15 +17,27 @@ namespace ASPNetDay4MovieDB.Migrations
 
         protected override void Seed(ASPNetDay4MovieDB.Models.DataContext context)
         {
+            var genres = new Genre[]
+            {
+                new Genre { Name = "SciFi" },
+                new Genre { Name = "Action" },
+                new Genre { Name = "Mystery" },
+                new Genre { Name = "Drama" },
+                new Genre { Name = "Comedy" }
+            };
+
+            context.Genres.AddOrUpdate(g => g.Name, genres);
+            context.SaveChanges();
+
             var movies = new Movie[]
             {
-                new Movie { Title = "Star Wars", Director = "Lucas" },
-                new Movie { Title = "Momento", Director = "Nolan" },
-                new Movie { Title = "King Kong", Director = "Jackson" }
+                new Movie { Title = "Star Wars", Director = "Lucas", GenreId = genres[0].Id },
+                new Movie { Title = "Momento", Director = "Nolan", GenreId = genres[3].Id },
+                new Movie { Title = "King Kong", Director = "Jackson", GenreId = genres[1].Id }
             };
 
             context.Movies.AddOrUpdate(m => m.Title, movies);
-
+            
 
             //  This method will be called after migrating to the latest version.
 

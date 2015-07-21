@@ -15,5 +15,6 @@ namespace ASPNetDay4MovieDB.Models
         }
 
         public IDbSet<Movie> Movies { get; set; }
+        public IDbSet<Genre> Genres { get; set; }
     }
 }
