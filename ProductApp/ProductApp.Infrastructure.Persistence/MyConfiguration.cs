@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProductApp.Infrastructure.Persistence
 {
-    class MyConfiguration : DbConfiguration
+    public class MyConfiguration : DbConfiguration
     {
         public MyConfiguration()
         {
