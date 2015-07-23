@@ -11,6 +11,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ASPNetIdentityDemo.Models;
+using Twilio;
+using System.Diagnostics;
+using SendGrid;
+using System.Net.Mail;
+using System.Net;
 
 namespace ASPNetIdentityDemo
 {
@@ -18,8 +23,25 @@ namespace ASPNetIdentityDemo
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new MailAddress("nick@codercamps.com", "Nick Brittain");
+            myMessage.Subject = message.Subject;
+            myMessage.Text = message.Body;
+            myMessage.Html = message.Body;
+
+            var credentials = new NetworkCredential("UserName", "Password");
+
+            var transportWeb = new Web(credentials);
+
+            if (transportWeb != null)
+            {
+                return transportWeb.DeliverAsync(myMessage);
+            }
+            else
+            {
+                return Task.FromResult(0);
+            }
         }
     }
 
@@ -27,6 +49,11 @@ namespace ASPNetIdentityDemo
     {
         public Task SendAsync(IdentityMessage message)
         {
+            var twilio = new TwilioRestClient("du82383e8f78", "fdjas83298237d");
+            var result = twilio.SendMessage("(803) 675-5739", message.Destination, message.Body);
+
+            Trace.WriteLine(result.Status);
+
             // Plug in your SMS service here to send a text message.
             return Task.FromResult(0);
         }

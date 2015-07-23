@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
+namespace ManyToManyEasy.Models
+{
+    public class SchoolDbContext : DbContext
+    {
+        public IDbSet<Student> Students { get; set; }
+        public IDbSet<Course> Courses { get; set; }
+        public IDbSet<StudentCourse> StudentCourses { get; set; }
+    }
+}

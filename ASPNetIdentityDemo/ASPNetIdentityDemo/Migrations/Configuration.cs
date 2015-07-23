@@ -7,6 +7,7 @@ namespace ASPNetIdentityDemo.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Security.Claims;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ASPNetIdentityDemo.Models.ApplicationDbContext>
     {
@@ -53,6 +54,8 @@ namespace ASPNetIdentityDemo.Migrations
                     throw new Exception(result.Errors.FirstOrDefault());
                 }
             }
+
+            userManager.AddClaim(nick.Id, new Claim("CanEditProducts", "true"));
         }
     }
 }
