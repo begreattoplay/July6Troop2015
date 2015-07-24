@@ -14,6 +14,9 @@ namespace ProductApp.Infrastructure.Persistence.Migrations
 
         protected override void Seed(ProductApp.Infrastructure.Persistence.ProductsDbContext context)
         {
+
+
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

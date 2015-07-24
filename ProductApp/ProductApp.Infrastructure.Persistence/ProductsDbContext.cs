@@ -10,6 +10,11 @@ namespace ProductApp.Infrastructure.Persistence
 {
     public class ProductsDbContext : DbContext
     {
+        public ProductsDbContext()
+            : base("ProductsAppDemo")
+        {
+
+        }
         public IDbSet<Category> Categories { get; set; }
         public IDbSet<Product> Products { get; set; }
     }
