@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Products</h2>
+
+<ul id="productList"></ul>
+
+@section scripts {
+    <script>
+        $.getJSON("/api/products/").done(function (data) {
+            data.forEach(function (product) {
+                //var jqueryProductList = $('#productList');
+                //jqueryProductList.append('<li>' + product.Name + '</li>');
+
+                var productList = document.getElementById('productList');
+                productList.innerHTML += '<li>' + product.name + '</li>';
+            });
+        });
+    </script>
+}
