@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Movies</h2>
+
+<form id="frm">
+    <div>
+        <label>
+            Title: <input id="title" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Director: <input id="director" />
+        </label>
+    </div>
+    <input id="add" type="button" value="Add Movie" />
+</form>
+<br /><br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Director</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tblBody">
+
+    </tbody>
+</table>
+
+
+@section scripts {
+    <script>
+        var frm = document.getElementById('frm');
+        var add = document.getElementById('add');
+        var title = document.getElementById('title');
+        var director = document.getElementById('director');
+        var tblBody = $('#tblBody');
+
+        $('#add').click(function () {
+            var movie = {
+                title: title.value,
+                director: director.value
+            };
+
+            $.ajax('/api/Movies', {
+                type: 'POST',
+                data: JSON.stringify(movie),
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.success) {
+                    frm.reset();
+                    fetchMovies();
+                }
+            });
+        });
+
+        $('.btnedit').click(function () {
+            var id = (this).data('id');
+        });
+
+        function fetchMovies() {
+            $.getJSON('/api/Movies').done(function (data) {
+                createTableRows(data);
+            });
+        }
+
+        function createTableRows(movies) {
+            tblBody.html('');
+
+            movies.forEach(function (movie) {
+                createTableRow(movie);
+            });
+        }
+
+        function createTableRow(movie) {
+            tblBody.append('<tr><td>' + movie.title + '</td><td>' + movie.director + '</td><td><button class="btnedit" data-id="' + movie.id + '">Edit</button><button>Delete</button></tr>');
+        }
+
+        fetchMovies();
+    </script>
+}

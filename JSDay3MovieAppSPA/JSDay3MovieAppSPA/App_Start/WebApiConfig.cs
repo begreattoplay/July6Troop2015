@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace JSDay3MVCWithJSON
+namespace JSDay3MovieAppSPA
 {
     public static class WebApiConfig
     {
@@ -14,9 +13,10 @@ namespace JSDay3MVCWithJSON
             //Remove the XML Formatter
             config.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
-            //Set the Contract Resolver (serialization) to use Camel Casing
+            // Web API configuration and services
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
+            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
