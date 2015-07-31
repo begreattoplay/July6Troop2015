@@ -1,0 +1,34 @@
+﻿@using JSDay4WebAPIAuth.Models
+@model IEnumerable<Product>
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <ul class="list" style="width: 200px;">
+                @foreach (var product in Model)
+                {
+                    <li id="@product.Id" data-name="@product.Name">@product.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <p>Shopping Cart</p>
+            <ul class="list" id="dropItems" style="min-height: 200px; min-width: 100px; border: 1px solid"></ul>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $('ul').sortable({
+            connectWith: '.list'
+        }).disableSelection();
+
+        //$('.list').droppable({
+        //    accept: 'li'
+        //});
+    </script>
+}
