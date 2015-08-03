@@ -1,0 +1,9 @@
+﻿<div ng-controller="PetShopListController as petShopList">
+    <div ng-repeat="category in petShopList.petsByCategory" style="float: left; margin-right: 80px;">
+        <h2>{{category.name}}</h2>
+        <div ng-repeat="pet in category.animals" style="float: right;">
+            <p>{{pet.name}}</p>
+            <img ng-src="{{pet.url}}" width="200" height="200" />
+        </div>
+    </div>
+</div>

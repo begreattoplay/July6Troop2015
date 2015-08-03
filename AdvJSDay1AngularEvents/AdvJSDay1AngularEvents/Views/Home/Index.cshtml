@@ -1,0 +1,9 @@
+﻿<div ng-controller="FavoriteColorController as vm" ng-cloak>
+    <h2>What is your favorite color?</h2>
+    <button ng-click="vm.pickColor('red')">Red</button>
+    <button ng-click="vm.pickColor('green')">Green</button>
+    <button ng-click="vm.pickColor('blue')">Blue</button>
+
+    <h2>Your favorite color is:</h2>
+    <output>{{vm.color}}</output>
+</div>
