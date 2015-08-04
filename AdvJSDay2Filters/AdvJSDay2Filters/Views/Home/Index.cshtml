@@ -1,0 +1,5 @@
+﻿<div ng-controller="FoodController as vm">
+    <ul>
+        <li ng-repeat="item in vm.food|unique">{{item}}</li>
+    </ul>
+</div>

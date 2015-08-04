@@ -1,0 +1,70 @@
+﻿<style>
+    .ng-invalid.ng-touched {
+        background-color: #FA787E;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+
+<div ng-controller="CarController as vm">
+    <form name="carForm" novalidate ng-submit="vm.add()">
+        <div>
+            <label>
+                Model: 
+                <input name="model" ng-model="vm.model" type="text" ng-required="true" />
+                <span ng-show="carForm.model.$touched && carForm.model.$error.required" class="error">
+                    Car model is required.
+                </span>
+            </label>
+        </div>
+        <div>
+            <label>
+                Price:
+                <input name="price" ng-model="vm.price" type="number" ng-required="true" />
+                <span ng-show="carForm.price.$touched && carForm.price.$error.required" class="error">
+                    Car price is required.
+                </span>
+                <span ng-show="carForm.price.$touched && carForm.price.$error.number" class="error">
+                    Car price must be a number.
+                </span>
+            </label>
+        </div>
+        <div>
+            <label>
+                Type:
+                <select name="type" ng-model="vm.selectedType" ng-options="type for type in vm.types" ng-required="true">
+
+                </select>
+                <span ng-show="carForm.type.$touched && carForm.type.$error.required" class="error">
+                    Car type is required.
+                </span>
+            </label>
+        </div>
+        <div>
+            <label>
+                Sedan Option:
+                <input name="sedan" type="text" ng-model="vm.sedan" ng-required="vm.isSedan()" />
+                <span ng-show="carForm.sedan.$touched && carForm.sedan.$error.required" class="error">
+                    Sedan option is required.
+                </span>
+            </label>
+        </div>
+        <div>
+            <label>
+                Coupe Option:
+                <input name="coupe" type="text" ng-model="vm.coupe" ng-required="!vm.isSedan()" />
+                <span ng-show="carForm.coupe.$touched && carForm.coupe.$error.required" class="error">
+                    Coupe option is required.
+                </span>
+            </label>
+        </div>
+        <div>
+            <input type="submit" value="Add" ng-disabled="carForm.$invalid" />
+        </div>
+        <div>
+            <output>{{vm.message}}</output>
+        </div>
+    </form>
+</div>
