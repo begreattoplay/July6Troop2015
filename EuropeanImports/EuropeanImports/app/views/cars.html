@@ -1,0 +1,10 @@
+﻿<div ng-hide="vm.cars.length > 0">
+    <p>You do not have any cars boohoo</p>
+</div>
+<div class="container" ng-show="vm.cars.length > 0">
+    <div class="row text-center">
+        <div class="col-md-4" ng-repeat="car in vm.cars">
+            <h4>{{car.make}}</h4>
+        </div>
+    </div>
+</div>

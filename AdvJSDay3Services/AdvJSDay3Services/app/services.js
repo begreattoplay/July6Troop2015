@@ -6,7 +6,7 @@
 
     productService.$inject = ['$http', 'productServiceURLs', '$q'];
 
-    function productService($http, productServiceURLs, $q) {
+    function productService($http, productServiceURLs, $q, $sessionStorage) {
         var service = {};
         var products = [];
 

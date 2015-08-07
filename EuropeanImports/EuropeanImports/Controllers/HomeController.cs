@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JSDay4WebAPIAuth.Controllers
+namespace EuropeanImports.Controllers
 {
     public class HomeController : Controller
     {
@@ -12,11 +12,6 @@ namespace JSDay4WebAPIAuth.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            return View();
-        }
-
-        public ActionResult ShoppingCart()
-        {
             return View();
         }
     }
